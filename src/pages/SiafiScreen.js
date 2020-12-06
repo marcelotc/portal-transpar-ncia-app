@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { TextInput, ScrollView } from 'react-native-gesture-handler';
+import Pagination from '../components/Pagination';
+import Siafis from '../components/Siafis';
 import api from '../services/api';
 
 function DetailsScreen({ navigation }) {
-    const [siafi, setSiafi] = useState();
-    const [desciption, setDesciption] = useState("");
+    const [descricao, setDescricao] = useState("");
 
-    console.log('desciption', desciption)
+    const [siafis, setSiafis] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
 
-        async function loadUsers() {
+        async function loadSiafis() {
+            setLoading(true);
             const { data } = await api.get('api-de-dados/orgaos-siafi', {
                 headers: {
-                    'chave-api-dados': '620a40c59df35d7116c66de808294fba'
+                    'chave-api-dados': '7a4820bdd1eb922a556121f3d7a8e582'
                 },
-                descricao: desciption,
-                pagina: 1
+                params: {
+                    descricao: descricao,
+                    pagina: 1
+                }
+                
             })
 
-            setSiafi(data)
+            setSiafis(data)
+            setLoading(false);
 
         }
+
+    const indexOfLastPost = currentPage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    const currentSiafis = siafis.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
 
     return (
         <ScrollView>
@@ -32,19 +49,12 @@ function DetailsScreen({ navigation }) {
                 placeholder="Digite o nome do orgão"
                 placeholderTextColor="#999"
                 style={styles.input}
-                value={desciption}
-                onChangeText={setDesciption}
+                value={descricao}
+                onChangeText={setDescricao}
             ></TextInput>
-            <Button title="Buscar" onPress={() => loadUsers() }/>
-            <Button title="Viagens" onPress={() => navigation.navigate('Trip')} />
-
-            {siafi && siafi.map((data) => (
-                <>
-                    <Text>Código: {data.codigo}</Text>
-                    <Text>Código: {data.codigoDescricaoFormatado}</Text>
-                    <Text>Código: {data.descricao}</Text>
-                </>
-            ))}
+            <Button title="Buscar" onPress={() => loadSiafis() }/>
+            <Siafis navigation={navigation} siafis={currentSiafis} loading={loading}></Siafis>
+            <Pagination itemsPerPage={itemsPerPage} totalPosts={siafis.length} paginate={paginate}></Pagination>
         </ScrollView>
     );
 }

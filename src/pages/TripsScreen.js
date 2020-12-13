@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
 import api from '../services/api';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 function HomeScreen({ navigation, route }) {
     const [dataIdaDe, setDataIdaDe] = useState();
@@ -87,11 +87,15 @@ function HomeScreen({ navigation, route }) {
                 <Text style={styles.tripTotal}>Total gasto em viagens: R$ {tripsTotal}</Text>
                 <ScrollView>
                     {trips && trips.map(trip => (
-                        <View key={trip.id} style={styles.items}>
-                            <Text style={styles.text}>{trip.pessoa.nome}</Text>
-                            <Text style={styles.text}>dataInicioAfastamento: {trip.dataInicioAfastamento}</Text>
-                            <Text style={styles.text}>dataFimAfastamento: {trip.dataFimAfastamento}</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate('ViagensDetalhe', {
+                            cpf: trip.beneficiario.cpf,
+                        })} key={trip.id}> 
+                            <View key={trip.id} style={styles.items}>
+                                <Text style={styles.text}>{trip.pessoa.nome}</Text>
+                                <Text style={styles.text}>dataInicioAfastamento: {trip.dataInicioAfastamento}</Text>
+                                <Text style={styles.text}>dataFimAfastamento: {trip.dataFimAfastamento}</Text>
+                            </View>
+                        </TouchableOpacity>
                     ))}
             </ScrollView>
             </>

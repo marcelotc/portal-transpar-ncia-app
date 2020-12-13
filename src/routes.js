@@ -6,6 +6,7 @@ const AppStack = createStackNavigator();
 
 import Siafi from './pages/SiafiScreen';
 import Trip from './pages/TripsScreen';
+import TripDetail from './pages/TripScreenDetail';
 
 export default function Routes() {
     return (
@@ -13,6 +14,7 @@ export default function Routes() {
             <AppStack.Navigator screenOptions={{ headerShown: true }}>
                 <AppStack.Screen name="Siafi" component={Siafi} />
                 <AppStack.Screen name="Viagens" component={Trip} />
+                <AppStack.Screen name="ViagensDetalhe" component={TripDetail} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, Button, StyleSheet } from 'react-native';
 import { TextInput, ScrollView } from 'react-native-gesture-handler';
 import Pagination from '../components/Pagination';
 import Siafis from '../components/Siafis';
 import api from '../services/api';
 
-function DetailsScreen({ navigation }) {
+function SiafiScreen({ navigation }) {
     const [descricao, setDescricao] = useState("");
 
     const [siafis, setSiafis] = useState([]);
@@ -59,7 +59,7 @@ function DetailsScreen({ navigation }) {
     );
 }
 
-export default DetailsScreen;
+export default SiafiScreen;
 
 const styles = StyleSheet.create({
     title: {

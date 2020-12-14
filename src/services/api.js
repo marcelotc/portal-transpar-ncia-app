@@ -5,3 +5,7 @@ const api = axios.create({
 })
 
 export default api;
+
+/* Nesse arquivo criamos uma url base para que possamos chamar somente o endpoint nos arquivos onde é
+feita a requisição na api
+ */

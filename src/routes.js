@@ -19,3 +19,6 @@ export default function Routes() {
         </NavigationContainer>
     );
 }
+
+/*Nesse arquivo é onde fazemos a parte do roteamento dos componentes, da linha 14 à 17 quando o 
+usuário chamar a função navigate o react navigation irá identificar qual telá precisa ser chamada */

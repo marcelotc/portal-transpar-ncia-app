@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import api from '../services/api';
 
+/*nesse arquivo é onde mostramos os detalhes da viagem do usuário, o useEffect serve como
+    um ciclo de vida do componente, nesse caso quando o componente for renderizado na tela a função
+     loadTrips() será chamada, setamos também um estado de loading como true antes da
+        requisição ser feita e false quando ela terminar,*/
+
 function TripScreenDetail({ route }) {
+/* Pegamos como prop o route, na tela tripScreen utlizamos o
+   navigate do react navigation para passar o cpf como query param na requsição
+    */
+
     const [loading, setLoading] = useState(false);
     const [tripDetail, setTripDetail] = useState([]);
 
@@ -24,7 +33,7 @@ function TripScreenDetail({ route }) {
 
             })
 
-            setTripDetail(data)
+            setTripDetail(data)//passamos os datos trazidos da requsição para o estado de tripDetail para que na linha 51 possamos fazer o map com as informações que precisamos
             setLoading(false)
 
         }
